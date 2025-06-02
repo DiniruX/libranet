@@ -1,7 +1,7 @@
 <template>
   <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
     <ol class="list-none p-0 inline-flex">
-      <li class="flex items-center text-purple">
+      <li class="flex items-center text-purple hidden">
         <a href="/dashboard" class="text-gray-500">Dashboard</a>
         <svg
           class="fill-current w-3 h-3 mx-3 text-blue-600"
@@ -25,6 +25,6 @@
 import { defineProps, computed } from 'vue'
 const props = defineProps<{ breadcrumb: string }>()
 const breadcrumbName = computed(() => {
-  return props.breadcrumb.toUpperCase()
+  return props.breadcrumb
 })
 </script>

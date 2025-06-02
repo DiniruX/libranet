@@ -19,7 +19,26 @@
         <span class="text-2xl font-semibold text-gray-700">LibraNet</span>
       </div>
 
-      <form class="mt-4" @submit.prevent="login">
+      <form class="mt-4" @submit.prevent="signup">
+        <label class="block mt-3">
+          <span class="text-sm text-gray-700">Name</span>
+          <input
+            type="text"
+            class="
+              block
+              w-full
+              mt-1
+              border-gray-200
+              rounded-md
+              focus:border-indigo-600
+              focus:ring
+              focus:ring-opacity-40
+              focus:ring-indigo-500
+            "
+            v-model="name"
+          />
+        </label>
+
         <label class="block">
           <span class="text-sm text-gray-700">Email</span>
           <input
@@ -107,10 +126,6 @@
         <div v-if="error" class="mt-4 text-red-500 text-sm">
           {{ error }}
         </div>
-        <div class="mt-4 text-sm text-center">
-          <span class="text-gray-600">Don't have an account?</span>
-          <router-link to="/signup" class="text-indigo-600 hover:underline">Sign up</router-link>
-        </div>
       </form>
     </div>
   </div>
@@ -123,31 +138,31 @@ const BASE_URL = process.env.VUE_APP_BASE_URL;
 import axios from "axios";
 
 const router = useRouter();
+const name = ref("");
 const email = ref("");
 const password = ref("");
 const loading = ref(false);
 const error = ref("");
 
-async function login() {
+async function signup() {
   loading.value = true;
-  if (!email.value || !password.value) {
-    error.value = "Email and password are required.";
+  if (!email.value || !password.value || !name.value) {
+    error.value = "Name, Email and password are required.";
     loading.value = false;
     return;
   }
 
   try {
-    const response = await axios.post(`${BASE_URL}/users/login`, {
+    await axios.post(`${BASE_URL}/users`, {
+      name: name.value,
       email: email.value,
       password: password.value,
+      role: "customer",
     });
-    localStorage.setItem("token", response.data.access_token);
-    localStorage.setItem("name", response.data.user.name);
-    localStorage.setItem("role", response.data.user.role);
-    router.push("/books");
+    router.push("/");
   } catch (err) {
     console.error(err);
-    error.value = err.response.data.detail || "Login failed. Please try again.";
+    error.value = err.response.data.detail || "Signup failed. Please try again.";
   } finally {
     loading.value = false;
   }
