@@ -66,6 +66,7 @@
     </div>
 
     <div class="flex items-center">
+      <p class="text-gray-600 text-sm font-semibold hidden lg:block capitalize">{{ role }}</p>
       <div class="flex items-center">
         <div class="relative">
           <button
@@ -224,7 +225,7 @@
         >
           <img
             class="object-cover w-full h-full"
-            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             alt="Your avatar"
           />
         </button>
@@ -357,4 +358,5 @@ import { useSidebar } from "../hooks/useSidebar";
 const dropdownOpen = ref(false);
 const { isOpen } = useSidebar();
 const notificationOpen = ref(false);
+const role = ref(localStorage.getItem("role"));
 </script>

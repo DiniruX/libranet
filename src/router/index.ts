@@ -9,6 +9,12 @@ import Chart from "../views/ChartView.vue";
 import Card from "../views/CardView.vue";
 import Blank from "../views/BlankView.vue";
 import NotFound from "../views/NotFound.vue";
+import AppBooks from "@/views/custom_views/AppBooks.vue";
+import AppLibraries from "@/views/custom_views/AppLibraries.vue";
+import AppReservations from "@/views/custom_views/AppReservations.vue";
+import AppFines from "@/views/custom_views/AppFines.vue";
+import AppUsers from "@/views/custom_views/AppUsers.vue";
+import AppSignUp from "@/views/custom_views/AppSignUp.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,9 +24,35 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: "empty" },
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
+    path: "/signup",
+    name: "SignUp",
+    component: AppSignUp,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/books",
+    name: "Books",
+    component: AppBooks,
+  },
+  {
+    path: "/libraries",
+    name: "Libraries",
+    component: AppLibraries,
+  },
+  {
+    path: "/reservations",
+    name: "Reservations",
+    component: AppReservations,
+  },
+  {
+    path: "/fines",
+    name: "Fines",
+    component: AppFines,
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: AppUsers,
   },
   {
     path: "/forms",
