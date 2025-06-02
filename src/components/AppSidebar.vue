@@ -114,7 +114,7 @@
           <span class="mx-4">Users</span>
         </router-link>
 
-        <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">Examples</p>
+        <!-- <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">Examples</p>
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'UIElements' ? activeClass : inactiveClass]"
@@ -238,7 +238,7 @@
           </svg>
 
           <span class="mx-4">Blank</span>
-        </router-link>
+        </router-link> -->
       </nav>
     </div>
   </div>
