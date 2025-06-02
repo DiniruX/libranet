@@ -144,6 +144,8 @@ async function login() {
     localStorage.setItem("token", response.data.access_token);
     localStorage.setItem("name", response.data.user.name);
     localStorage.setItem("role", response.data.user.role);
+    localStorage.setItem("user_id", response.data.user.id);
+    localStorage.setItem("library_id", response.data.user.library_id);
     router.push("/books");
   } catch (err) {
     console.error(err);

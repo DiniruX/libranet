@@ -99,12 +99,7 @@
 
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm leading-5 text-gray-900">
-                    <div v-if="u.is_active" class="text-green-600">
-                      <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                    </div>
-                    <div v-else class="text-red-600">
-                      <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Inactive</span>
-                    </div>
+                    <StatusLayout :status="u.is_active ? 'active' : 'inactive'" />
                   </div>
                 </td>
 
@@ -168,6 +163,7 @@ import { ref, onMounted } from 'vue'
 import Breadcrumb from '../../partials/AppBreadcrumb.vue'
 import axios from 'axios'
 import UpdateUserModal from '@/components/users/UpdateUserModal.vue'
+import StatusLayout from '@/components/status/StatusLayout.vue'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 interface User {
