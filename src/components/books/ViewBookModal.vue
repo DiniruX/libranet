@@ -15,11 +15,7 @@
       <!--Body-->
       <label class="block">
         <span class="text-sm text-gray-700 capitalize font-semibold">Cover Image</span>
-        <input
-          type="text"
-          class="block w-full mt-1 mb-6 border px-4 py-2 border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 text-sm"
-          v-model="cover_image"
-        />
+        <img v-if="cover_image" :src="cover_image ? `data:image/png;base64,${cover_image}` : ''" class="mb-6 w-full h-48 object-cover rounded-md" />
       </label>
 
       <label class="block">
