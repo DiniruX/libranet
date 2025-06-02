@@ -4,16 +4,9 @@
     <div class="mt-4">
       <div class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
+          <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
-              <svg
-                class="w-8 h-8 text-white"
-                viewBox="0 0 28 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z"
                   fill="currentColor"
@@ -42,74 +35,8 @@
             </div>
 
             <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">8,282</h4>
-              <div class="text-gray-500">New Users</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
-            <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
-              <svg
-                class="w-8 h-8 text-white"
-                viewBox="0 0 28 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.19999 1.4C3.4268 1.4 2.79999 2.02681 2.79999 2.8C2.79999 3.57319 3.4268 4.2 4.19999 4.2H5.9069L6.33468 5.91114C6.33917 5.93092 6.34409 5.95055 6.34941 5.97001L8.24953 13.5705L6.99992 14.8201C5.23602 16.584 6.48528 19.6 8.97981 19.6H21C21.7731 19.6 22.4 18.9732 22.4 18.2C22.4 17.4268 21.7731 16.8 21 16.8H8.97983L10.3798 15.4H19.6C20.1303 15.4 20.615 15.1004 20.8521 14.6261L25.0521 6.22609C25.2691 5.79212 25.246 5.27673 24.991 4.86398C24.7357 4.45123 24.2852 4.2 23.8 4.2H8.79308L8.35818 2.46044C8.20238 1.83722 7.64241 1.4 6.99999 1.4H4.19999Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M22.4 23.1C22.4 24.2598 21.4598 25.2 20.3 25.2C19.1403 25.2 18.2 24.2598 18.2 23.1C18.2 21.9402 19.1403 21 20.3 21C21.4598 21 22.4 21.9402 22.4 23.1Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M9.1 25.2C10.2598 25.2 11.2 24.2598 11.2 23.1C11.2 21.9402 10.2598 21 9.1 21C7.9402 21 7 21.9402 7 23.1C7 24.2598 7.9402 25.2 9.1 25.2Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-
-            <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">200,521</h4>
-              <div class="text-gray-500">Total Orders</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-          <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
-          >
-            <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
-              <svg
-                class="w-8 h-8 text-white"
-                viewBox="0 0 28 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
-
-            <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">215,542</h4>
-              <div class="text-gray-500">Available Products</div>
+              <h4 class="text-2xl font-semibold text-gray-700">{{ books.length > 0 ? books.length : 'No' }}</h4>
+              <div class="text-gray-500">Total Books</div>
             </div>
           </div>
         </div>
@@ -120,180 +47,103 @@
 
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div
-          class="
-            inline-block
-            min-w-full
-            overflow-hidden
-            align-middle
-            border-b border-gray-200
-            shadow
-            sm:rounded-lg
-          "
-        >
+        <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
+          <h3 class="text-lg font-semibold text-gray-700"></h3>
+          <button @click="newBook" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
+            New Book
+          </button>
+          <button @click="fetchBooks" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20" height="20">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
           <table class="min-w-full">
             <thead>
               <tr>
                 <th
-                  class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  "
-                >
-                  Name
-                </th>
-                <th
-                  class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  "
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
                   Title
                 </th>
                 <th
-                  class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  "
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Status
+                  ISBN
                 </th>
                 <th
-                  class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  "
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Role
+                  Genre
                 </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody class="bg-white">
-              <tr v-for="(u, index) in users" :key="index">
-                <td
-                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
-                >
+              <tr v-for="(u, index) in books" :key="index">
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 w-10 h-10">
-                      <img
-                        class="w-10 h-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <img class="w-10 h-10 rounded-full" :src="u?.cover_image ? `data:image/png;base64,${u.cover_image}` : ''" alt="" />
                     </div>
 
                     <div class="ml-4">
                       <div class="text-sm font-medium leading-5 text-gray-900">
-                        {{ u.name }}
+                        {{ u.title }}
                       </div>
                       <div class="text-sm leading-5 text-gray-500">
-                        {{ u.email }}
+                        {{ u.author }}
                       </div>
                     </div>
                   </div>
                 </td>
 
-                <td
-                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
-                >
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm leading-5 text-gray-900">
-                    {{ u.title }}
+                    <div class="text-sm leading-5 text-gray-500">
+                      {{ u.isbn }}
+                    </div>
                   </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    {{ u.title2 }}
-                  </div>
                 </td>
 
-                <td
-                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
-                >
-                  <span
-                    class="
-                      inline-flex
-                      px-2
-                      text-xs
-                      font-semibold
-                      leading-5
-                      text-green-800
-                      bg-green-100
-                      rounded-full
-                    "
-                    >{{ u.status }}</span
-                  >
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm leading-5 text-gray-500">
+                  {{ u.genre }}
                 </td>
 
-                <td
-                  class="
-                    px-6
-                    py-4
-                    text-sm
-                    leading-5
-                    text-gray-500
-                    border-b border-gray-200
-                    whitespace-nowrap
-                  "
-                >
-                  {{ u.role }}
-                </td>
-
-                <td
-                  class="
-                    px-6
-                    py-4
-                    text-sm
-                    font-medium
-                    leading-5
-                    text-right
-                    border-b border-gray-200
-                    whitespace-nowrap
-                  "
-                >
+                <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
                   <div class="flex justify-around">
                     <span class="text-yellow-500 flex justify-center">
-                      <a href="#" class="mx-2 px-2 rounded-md"
-                        ><svg
+                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="viewBook(u.id)" title="Update Book"
+                        >
+                        <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5 text-green-700"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.5"
+                          stroke="currentColor"
+                          class="h-5 w-5 text-yellow-500"
                         >
                           <path
-                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
                           />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                      </a>
+                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateBook(u.id)" title="Update Book"
+                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
                             fill-rule="evenodd"
                             d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
@@ -301,14 +151,9 @@
                           />
                         </svg>
                       </a>
-                      <form method="POST">
+                      <form method="POST" @submit.prevent="deleteBook(u.id)">
                         <button class="mx-2 px-2 rounded-md">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-red-700"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-700" viewBox="0 0 20 20" fill="currentColor">
                             <path
                               fill-rule="evenodd"
                               d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
@@ -326,29 +171,144 @@
         </div>
       </div>
     </div>
+
+    <!-- update book modal -->
+    <div
+      :class="`modal ${
+        !isUpdateBookModalOpen && 'opacity-0 pointer-events-none'
+      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
+    >
+      <div @click="isUpdateBookModalOpen = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md h-4/5">
+        <div class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <UpdateBookModal :id="selectedBookId" />
+      </div>
+    </div>
+
+    <!-- view book modal -->
+    <div
+      :class="`modal ${
+        !isViewBookModalOpen && 'opacity-0 pointer-events-none'
+      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
+    >
+      <div @click="isViewBookModalOpen = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md h-4/5">
+        <!-- md:max-w-6xl -->
+        <div class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <ViewBookModal :id="selectedBookId" />
+      </div>
+    </div>
+
+    <!-- new book modal -->
+    <div
+      :class="`modal ${
+        !isNewBookModalOpen && 'opacity-0 pointer-events-none'
+      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
+    >
+      <div @click="isNewBookModalOpen = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md h-4/5">
+        <!-- md:max-w-6xl -->
+        <div class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <NewBookModal />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import Breadcrumb from "../../partials/AppBreadcrumb.vue";
-interface User {
-  name: string;
-  email: string;
-  title: string;
-  title2: string;
-  status: string;
-  role: string;
+import { ref, onMounted } from 'vue'
+import Breadcrumb from '../../partials/AppBreadcrumb.vue'
+import axios from 'axios'
+import UpdateBookModal from '@/components/books/UpdateBookModal.vue'
+import ViewBookModal from '@/components/books/ViewBookModal.vue'
+import NewBookModal from '@/components/books/NewBookModal.vue'
+const BASE_URL = process.env.VUE_APP_BASE_URL
+
+interface Book {
+  id: number
+  title: string
+  author: string
+  isbn: string
+  genre: string
+  cover_image: string
 }
 
-const testUser: User = {
-  name: "John Doe",
-  email: "john@example.com",
-  title: "Software Engineer",
-  title2: "Web dev",
-  status: "Active",
-  role: "Owner",
-};
+const books = ref<Book[]>([])
+const loading = ref(false)
+const token = ref(localStorage.getItem('token') || '')
+const isUpdateBookModalOpen = ref(false)
+const isViewBookModalOpen = ref(false)
+const isNewBookModalOpen = ref(false)
+const selectedBookId = ref()
 
-const users = ref<User[]>([...Array(10).keys()].map(() => testUser));
+async function fetchBooks() {
+  loading.value = true
+  try {
+    const response = await axios.get(`${BASE_URL}/books`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    books.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(async () => {
+  await fetchBooks()
+})
+
+async function deleteBook(bookId: number) {
+  if (!confirm('Are you sure you want to delete this book?')) return
+  try {
+    await axios.delete(`${BASE_URL}/books/${bookId}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    await fetchBooks()
+  } catch (error) {
+    console.error('There was a problem with the delete operation:', error)
+  }
+}
+
+function updateBook(id: number) {
+  selectedBookId.value = id
+  isUpdateBookModalOpen.value = true
+}
+
+function viewBook(id: number) {
+  selectedBookId.value = id
+  isViewBookModalOpen.value = true
+}
+
+function newBook() {
+  isNewBookModalOpen.value = true
+}
 </script>
+<style>
+.modal {
+  transition: opacity 0.25s ease;
+}
+</style>
