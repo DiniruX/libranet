@@ -55,7 +55,7 @@
 
       <label class="block">
         <span class="text-sm text-gray-700 capitalize font-semibold">Status</span>
-        <p class="block mt-1 mb-6 text-sm text-gray-600">{{ status }}</p>
+        <StatusLayout :status="status" />
       </label>
 
       <label class="block">
@@ -69,6 +69,7 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted, watch } from 'vue'
 import axios from 'axios'
+import StatusLayout from '@/components/status/StatusLayout.vue'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 interface Library {
