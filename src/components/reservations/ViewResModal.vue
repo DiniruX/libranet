@@ -94,6 +94,7 @@
       </div>
       <div class="flex justify-end pt-2 gap-2">
         <button
+        v-if="loggedInRole === 'admin'"
           @click="openNewFineModal"
           class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-300 rounded-md hover:bg-gray-500 focus:outline-none"
         >
@@ -157,6 +158,7 @@ const status = ref('')
 const created_at = ref('')
 const loading = ref(false)
 const isNewFineModalOpen = ref(false)
+const loggedInRole = ref(localStorage.getItem('role'))
 
 // inter library reservation
 const from_library_id = ref('')

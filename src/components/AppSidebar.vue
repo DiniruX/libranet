@@ -81,6 +81,7 @@
         </router-link>
 
         <router-link
+          v-if="role === 'admin'"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Fines' ? activeClass : inactiveClass]"
           to="/fines"
@@ -98,6 +99,7 @@
         </router-link>
 
         <router-link
+          v-if="role === 'admin'"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Users' ? activeClass : inactiveClass]"
           to="/users"
@@ -251,4 +253,5 @@ import { useSidebar } from '../hooks/useSidebar'
 const { isOpen } = useSidebar()
 const activeClass = ref('bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100')
 const inactiveClass = ref('border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100')
+const role = ref(localStorage.getItem('role'))
 </script>

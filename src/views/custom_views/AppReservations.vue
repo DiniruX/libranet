@@ -379,11 +379,29 @@ const isUpdateResModalOpen = ref(false)
 const isViewResModalOpen = ref(false)
 const isNewResModalOpen = ref(false)
 const selectedResId = ref()
+const loggedInRole = ref(localStorage.getItem('role'))
 
 async function fetchReservations() {
   loading.value = true
   try {
     const response = await axios.get(`${BASE_URL}/reservations`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    reservations.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function fetchReservationsForLoggedInUser() {
+  loading.value = true
+  try {
+    const user_id = localStorage.getItem('user_id')
+    const response = await axios.get(`${BASE_URL}/reservations/user/${user_id}`, {
       headers: {
         Authorization: `Bearer ${token.value}`,
       },
@@ -445,7 +463,11 @@ async function fetchBooks() {
 }
 
 onMounted(() => {
-  fetchReservations()
+  if (loggedInRole.value === 'customer') {
+    fetchReservationsForLoggedInUser()
+  } else if (loggedInRole.value === 'admin') {
+    fetchReservations()
+  }
   fetchLibs()
   fetchUsers()
   fetchBooks()
