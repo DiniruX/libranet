@@ -52,6 +52,30 @@
         </select>
       </label>
 
+      <label class="block">
+        <span class="text-sm text-gray-700 capitalize">Library</span>
+        <select
+          class="block w-full h-full px-4 py-2 pr-8 mb-6 leading-tight text-gray-700 bg-white border border-gray-400 rounded-l appearance-none focus:outline-none focus:bg-white focus:border-gray-500 text-sm"
+          v-model="library_id"
+        >
+          <option v-for="lib in libraries" :key="lib.id" :value="lib.id" class="whitespace-nowrap">
+            {{ lib.name }}
+          </option>
+        </select>
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700 capitalize">Status</span>
+        <select
+          class="block w-full h-full px-4 py-2 pr-8 mb-6 leading-tight text-gray-700 bg-white border border-gray-400 rounded-l appearance-none focus:outline-none focus:bg-white focus:border-gray-500 text-sm"
+          v-model="is_active"
+        >
+          <option v-for="status in fixedStatuses" :key="status.id" :value="status.id" class="whitespace-nowrap">
+            {{ status.name }}
+          </option>
+        </select>
+      </label>
+
       <!--Footer-->
       <div class="flex justify-end pt-2">
         <button
@@ -96,6 +120,16 @@ const password = ref('')
 const is_active = ref(false)
 const success = ref('')
 const error = ref('')
+const fixedStatuses = ref([
+  {
+    id: true,
+    name: 'active',
+  },
+  {
+    id: false,
+    name: 'inactive',
+  }
+])
 
 async function fetchUser() {
   try {
@@ -104,12 +138,13 @@ async function fetchUser() {
         Authorization: `Bearer ${token.value}`,
       },
     })
+    console.log('User data:', response.data)
     const user = response.data
     name.value = user.name
     email.value = user.email
     role.value = user.role
     library_id.value = user.library_id
-    password.value = user.password
+    password.value = user.hashed_password
     is_active.value = user.is_active
   } catch (error) {
     console.error('Error fetching user:', error)
@@ -140,7 +175,7 @@ async function updateUser() {
         email: email.value,
         role: role.value,
         library_id: library_id.value,
-        password: password.value,
+        hashed_password: password.value,
         is_active: is_active.value,
       },
       {

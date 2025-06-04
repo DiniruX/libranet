@@ -5,38 +5,83 @@
       <div class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
           <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
-            <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
-              <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="text-white bg-blue-500 rounded-full p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
                 <path
-                  d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M8.39999 12.0444C8.39999 13.6768 7.14639 15 5.59999 15C4.05359 15 2.79999 13.6768 2.79999 12.0444C2.79999 10.4121 4.05359 9.08889 5.59999 9.08889C7.14639 9.08889 8.39999 10.4121 8.39999 12.0444Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M22.4 26.8222V22.3889C22.4 20.8312 22.0195 19.3671 21.351 18.0949C21.6863 18.0039 22.0378 17.9556 22.4 17.9556C24.7197 17.9556 26.6 19.9404 26.6 22.3889V26.8222H22.4Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M6.64896 18.0949C5.98058 19.3671 5.59999 20.8312 5.59999 22.3889V26.8222H1.39999V22.3889C1.39999 19.9404 3.2804 17.9556 5.59999 17.9556C5.96219 17.9556 6.31367 18.0039 6.64896 18.0949Z"
-                  fill="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
                 />
               </svg>
             </div>
-
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">{{ users.length > 0 ? users.length : 'No' }}</h4>
               <div class="text-gray-500">Total Users</div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+          <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+            <div class="text-white bg-green-500 rounded-full p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+                />
+              </svg>
+            </div>
+            <div class="mx-5">
+              <h4 class="text-2xl font-semibold text-gray-700">
+                {{ users.filter((u) => u.is_active).length > 0 ? users.filter((u) => u.is_active).length : 'No' }}
+              </h4>
+              <div class="text-gray-500">Active Users</div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+          <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+            <div class="text-white bg-red-500 rounded-full p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+                />
+              </svg>
+            </div>
+            <div class="mx-5">
+              <h4 class="text-2xl font-semibold text-gray-700">
+                {{ users.filter((u) => !u.is_active).length > 0 ? users.filter((u) => !u.is_active).length : 'No' }}
+              </h4>
+              <div class="text-gray-500">Inactive Users</div>
             </div>
           </div>
         </div>
@@ -47,6 +92,17 @@
 
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
+          <button @click="fetchUsers" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20" height="20">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
+          </button>
+        </div>
         <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
           <table class="min-w-full">
             <thead>
@@ -142,7 +198,11 @@
     </div>
 
     <!-- update user modal -->
-    <div :class="`modal ${!isUpdateUserModalOpen && 'opacity-0 pointer-events-none'} z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
+    <div
+      :class="`modal ${
+        !isUpdateUserModalOpen && 'opacity-0 pointer-events-none'
+      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
+    >
       <div @click="isUpdateUserModalOpen = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
 
       <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
@@ -224,4 +284,3 @@ function updateUser(id: number) {
   transition: opacity 0.25s ease;
 }
 </style>
-
