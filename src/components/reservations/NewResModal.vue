@@ -44,8 +44,11 @@
               {{ book.title }}
             </div>
             <div class="text-xs text-gray-500">by {{ book.author }}</div>
+            <div class="text-xs text-gray-500">{{ getLibraryName(book.library_id) }}</div>
+            <div v-if="reserved_book_ids.includes(book.id)" class="text-xs text-yellow-500">Unavailable</div>
             <div v-if="book_ids.includes(book.id)" class="text-xs text-green-500">Added</div>
             <button
+              v-if="!reserved_book_ids.includes(book.id)"
               class="absolute top-2 right-2 w-6 h-6 text-white bg-green-500 rounded-full hover:bg-green-600"
               @click="addBookId(book.id)"
               :disabled="book_ids.includes(book.id)"
@@ -88,10 +91,7 @@
 
       <!--Footer-->
       <div class="flex justify-end pt-2 gap-2">
-        <button
-          @click="clearForm"
-          class="px-6 py-3 font-medium tracking-wide text-white bg-gray-300 rounded-md hover:bg-gray-500 focus:outline-none"
-        >
+        <button @click="clearForm" class="px-6 py-3 font-medium tracking-wide text-white bg-gray-300 rounded-md hover:bg-gray-500 focus:outline-none">
           Clear
         </button>
         <button
@@ -112,7 +112,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
@@ -132,6 +132,8 @@ interface Book {
   title: string
   author: string
   cover_image?: string
+  library_id: string | number
+  status: string
 }
 const books = ref<Book[]>([])
 const libs = ref<Library[]>([])
@@ -141,6 +143,7 @@ const library_id = ref(localStorage.getItem('library_id') || '')
 const reservation_from = ref(defaultFromDate.toISOString().split('T')[0])
 const reservation_to = ref(defaultToDate.toISOString().split('T')[0])
 const book_ids = ref<Array<string | number>>([])
+const reserved_book_ids = ref<Array<string | number>>([])
 const loading = ref(false)
 
 // inter library reservation
@@ -190,13 +193,41 @@ async function fetchBooks() {
         Authorization: `Bearer ${token.value}`,
       },
     })
-    books.value = response.data || []
+    books.value = response.data.filter((book: Book) => book.status !== 'damaged' && book.status !== 'lost') || []
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)
   } finally {
     loading.value = false
   }
 }
+
+async function fetchReservedBookids(start: string, end: string) {
+  loading.value = true
+  reserved_book_ids.value = []
+  try {
+    const response = await axios.get(`${BASE_URL}/reservations/books-in-reservations/${start}/${end}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    console.log('Reserved books response:', response.data)
+    reserved_book_ids.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+watch(
+  [reservation_from, reservation_to],
+  ([newFrom, newTo]) => {
+    if (newFrom && newTo) {
+      fetchReservedBookids(newFrom, newTo)
+    }
+  },
+  { immediate: true }
+)
 
 onMounted(() => {
   fetchLibs()
@@ -208,6 +239,11 @@ const addBookId: AddBookIdFn = function (id) {
   if (!book_ids.value.includes(id)) {
     book_ids.value.push(id)
   }
+}
+
+function getLibraryName(libraryId: string | number): string {
+  const library = libs.value.find(lib => lib.id === libraryId)
+  return library ? library.name : 'Unknown Library'
 }
 
 async function saveReservation() {

@@ -84,9 +84,41 @@
         <hr class="my-6" />
         <span class="text-md mb-2 text-gray-700 capitalize font-semibold">Fines info</span>
         <ul class="list-disc list-inside">
-          <li v-for="fine in fines" :key="fine.id" class="text-sm text-gray-600 mb-2">{{ fine.reason }} - {{ fine.amount }}¥</li>
+          <li v-for="fine in fines" :key="fine.id" class="text-sm text-gray-600 mb-2">
+            {{ fine.reason }} - {{ fine.amount }}¥ <StatusLayout :status="fine.status" />
+          </li>
         </ul>
-        <hr class="my-6" />
+      </div>
+      <div v-else>
+        <p class="text-sm text-gray-600 mb-6">No fines associated with this reservation.</p>
+      </div>
+      <div class="flex justify-end pt-2 gap-2">
+        <button
+          @click="openNewFineModal"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-300 rounded-md hover:bg-gray-500 focus:outline-none"
+        >
+          Add Fine
+        </button>
+      </div>
+    </div>
+
+    <!-- new fine modal -->
+    <div
+      :class="`modal ${
+        !isNewFineModalOpen && 'opacity-0 pointer-events-none'
+      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
+    >
+      <div @click="isNewFineModalOpen = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+        <!-- md:max-w-6xl -->
+        <div class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <NewFineModal :id="props.id" :due_date="reservation_to" />
       </div>
     </div>
   </div>
@@ -97,6 +129,7 @@ import { ref, defineProps, onMounted, watch } from 'vue'
 import axios from 'axios'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 import StatusLayout from '@/components/status/StatusLayout.vue'
+import NewFineModal from '../fines/NewFineModal.vue'
 
 const libs = ref([])
 const users = ref([])
@@ -105,6 +138,7 @@ interface Fine {
   id: number
   reason: string
   amount: number
+  status: string
 }
 const fines = ref<Fine[]>([])
 const props = defineProps({
@@ -122,6 +156,7 @@ const book_ids = ref('')
 const status = ref('')
 const created_at = ref('')
 const loading = ref(false)
+const isNewFineModalOpen = ref(false)
 
 // inter library reservation
 const from_library_id = ref('')
@@ -163,6 +198,7 @@ async function fetchInterLibReservation() {
       interLibStatus.value = res.status || ''
       logisticStatus.value = res.logistic_status || ''
     }
+    await fetchFines()
   } catch (error) {
     console.error('Error fetching book:', error)
   }
@@ -224,6 +260,7 @@ async function fetchFines() {
         Authorization: `Bearer ${token.value}`,
       },
     })
+    console.log('Fines response:', response.data)
     fines.value = response.data || []
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)
@@ -232,11 +269,10 @@ async function fetchFines() {
   }
 }
 
-onMounted(() => {
-  fetchLibs()
-  fetchUsers()
-  fetchBooks()
-  fetchFines()
+onMounted(async () => {
+  await fetchLibs()
+  await fetchUsers()
+  await fetchBooks()
 })
 
 watch(
@@ -278,5 +314,9 @@ function formatDate(dateString: string): string {
     month: '2-digit',
     day: '2-digit',
   })
+}
+
+function openNewFineModal() {
+  isNewFineModalOpen.value = true
 }
 </script>
