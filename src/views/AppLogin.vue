@@ -146,6 +146,10 @@ async function login() {
     localStorage.setItem("role", response.data.user.role);
     localStorage.setItem("user_id", response.data.user.id);
     localStorage.setItem("library_id", response.data.user.library_id);
+    if (response.data.user.is_active === false) {
+      error.value = "Your account is not active. Please contact support.";
+      return;
+    }
     router.push("/books");
   } catch (err) {
     console.error(err);
