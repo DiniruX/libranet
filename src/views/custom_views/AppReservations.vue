@@ -74,6 +74,25 @@
             </svg>
           </button>
         </div>
+        <div class="bg-white text-gray-500 font-semibold text-sm px-4 py-2 my-4 rounded-md shadow-sm flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+            width="20"
+            height="20"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+            />
+          </svg>
+          <span>Reservations cannot be updated. Please cancel and create new reservation</span>
+        </div>
         <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
           <table class="min-w-full">
             <thead>
@@ -97,6 +116,11 @@
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
                   Books
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Status
                 </th>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
@@ -141,6 +165,14 @@
                   </div>
                 </td>
 
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <div class="text-sm leading-5 text-gray-900">
+                    <div class="text-sm leading-5 text-gray-500">
+                      <StatusLayout :status="u.status" />
+                    </div>
+                  </div>
+                </td>
+
                 <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
                   <div class="flex justify-around">
                     <span class="text-yellow-500 flex justify-center">
@@ -161,7 +193,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </a>
-                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateRes(u.id)" title="Update Book"
+                      <a href="#" class="mx-2 px-2 rounded-md hidden" @click.prevent="updateRes(u.id)" title="Update Book"
                         ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
@@ -258,6 +290,7 @@ import axios from 'axios'
 import NewResModal from '@/components/reservations/NewResModal.vue'
 import UpdateResModal from '@/components/reservations/UpdateResModal.vue'
 import ViewResModal from '@/components/reservations/ViewResModal.vue'
+import StatusLayout from '@/components/status/StatusLayout.vue'
 const BASE_URL = process.env.VUE_APP_BASE_URL
 
 const reservations = ref<Reservation[]>([])
@@ -268,10 +301,23 @@ interface Reservation {
   reservation_from: string
   reservation_to: string
   book_ids: string
+  status: string
 }
-const libs = ref([])
-const users = ref([])
-const books = ref([])
+interface Library {
+  id: string | number
+  name: string
+}
+interface User {
+  id: string | number
+  name: string
+}
+interface Book {
+  id: string | number
+  title: string
+}
+const libs = ref<Library[]>([])
+const users = ref<User[]>([])
+const books = ref<Book[]>([])
 const loading = ref(false)
 const token = ref(localStorage.getItem('token') || '')
 const isUpdateResModalOpen = ref(false)
@@ -351,13 +397,17 @@ onMounted(() => {
 })
 
 async function deleteReservation(resId: number) {
-  if (!confirm('Are you sure you want to delete this book?')) return
+  if (!confirm('Are you sure you want to cancel this book?')) return
   try {
-    await axios.delete(`${BASE_URL}/reservations/${resId}`, {
-      headers: {
-        Authorization: `Bearer ${token.value}`,
-      },
-    })
+    await axios.put(
+      `${BASE_URL}/reservations/${resId}/cancel`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
     await fetchReservations()
   } catch (error) {
     console.error('There was a problem with the delete operation:', error)
