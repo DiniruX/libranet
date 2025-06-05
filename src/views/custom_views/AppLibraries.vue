@@ -177,7 +177,7 @@
                 <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
                   <div class="flex justify-around">
                     <span class="text-yellow-500 flex justify-center">
-                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="viewLib(u.id)" title="Update Book">
+                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="viewLib(u.id)" title="Update Library">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -194,7 +194,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </a>
-                      <a v-if="loggedInRole === 'admin'" href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateLib(u.id)" title="Update Book"
+                      <a v-if="loggedInRole === 'admin' || loggedInRole === 'librarian'" href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateLib(u.id)" title="Update Library"
                         ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
@@ -326,8 +326,35 @@ async function fetchLibs() {
   }
 }
 
+async function fetchLibById() {
+  loading.value = true
+  try {
+    const lib_id = localStorage.getItem('library_id')
+    const response = await axios.get(`${BASE_URL}/libraries/${lib_id}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    // response.data is an object. make it an array with one element
+    if (Array.isArray(response.data)) {
+      libs.value = response.data || []
+    } else {
+      libs.value = [response.data]
+    }
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
-  await fetchLibs()
+  // await fetchLibs()
+  if(loggedInRole.value === 'librarian') {
+    await fetchLibById()
+  } else {
+    await fetchLibs()
+  }
 })
 
 async function deleteLib(libId: number) {

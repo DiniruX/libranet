@@ -156,7 +156,7 @@ async function signup() {
     await axios.post(`${BASE_URL}/users`, {
       name: name.value,
       email: email.value,
-      password: password.value,
+      hashed_password: password.value,
       role: "customer",
     });
     router.push("/");

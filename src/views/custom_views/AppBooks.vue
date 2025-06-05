@@ -332,8 +332,29 @@ async function fetchBooks() {
   }
 }
 
+async function fetchBooksByLib() {
+  loading.value = true
+  try {
+    const lib_id = localStorage.getItem('library_id')
+    const response = await axios.get(`${BASE_URL}/books/library/${lib_id}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    books.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
-  await fetchBooks()
+  if (loggedInRole.value === 'librarian') {
+    await fetchBooksByLib()
+  } else {
+    await fetchBooks()
+  }
 })
 
 async function deleteBook(bookId: number) {
