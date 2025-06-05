@@ -210,7 +210,6 @@ async function fetchReservedBookids(start: string, end: string) {
         Authorization: `Bearer ${token.value}`,
       },
     })
-    console.log('Reserved books response:', response.data)
     reserved_book_ids.value = response.data || []
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)

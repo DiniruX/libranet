@@ -17,18 +17,30 @@
         <span class="text-sm text-gray-700 capitalize font-semibold">Reason</span>
         <input
           type="text"
-          class="block w-full mt-1 mb-6 border px-4 py-2 border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 text-sm"
+          class="block w-full mt-1 border px-4 py-2 border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 text-sm"
           v-model="reason"
         />
+        <div class="mt-2 text-xs text-gray-500 mb-6">
+          Suggested reasons: 
+          <span v-for="suggestion in resonSuggestions" :key="suggestion" class="cursor-pointer text-indigo-600 hover:underline" @click="reason = suggestion">
+            {{ suggestion }} |
+          </span>
+        </div>
       </label>
 
       <label class="block">
         <span class="text-sm text-gray-700 capitalize font-semibold">Amount</span>
         <input
           type="text"
-          class="block w-full mt-1 mb-6 border px-4 py-2 border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 text-sm"
+          class="block w-full mt-1 border px-4 py-2 border-gray-400 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500 text-sm"
           v-model="amount"
         />
+        <div class="mt-2 text-xs text-gray-500 mb-6">
+          Suggested amounts: 
+          <span v-for="suggestion in amountSuggestions" :key="suggestion" class="cursor-pointer text-indigo-600 hover:underline" @click="amount = suggestion">
+            {{ suggestion }}¥ |
+          </span>
+        </div>
       </label>
 
       <!--Footer-->
@@ -70,6 +82,21 @@ const success = ref('')
 const error = ref('')
 const reason = ref('')
 const amount = ref('')
+const resonSuggestions = ref([
+  'late return',
+  'damaged item',
+  'lost item',
+  'other',
+])
+const amountSuggestions = ref([
+  '100',
+  '500',
+  '1000',
+  '1500',
+  '2000',
+  '2500',
+  '3000',
+])
 
 function addFineToReservation() {
   try {
@@ -99,5 +126,4 @@ function addFineToReservation() {
     }
   }
 }
-
 </script>

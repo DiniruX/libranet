@@ -143,7 +143,7 @@
           <button @click="newRes" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
             New Reservation
           </button>
-          <button @click="expRes" class="px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded-md hover:bg-amber-500 focus:outline-none">
+          <button v-if="loggedInRole === 'admin' || loggedInRole === 'librarian'" @click="expRes" class="px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded-md hover:bg-amber-500 focus:outline-none">
             Expire Reservations
           </button>
           <button
