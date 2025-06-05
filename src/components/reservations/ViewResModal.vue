@@ -50,11 +50,11 @@
 
       <label class="block">
         <span class="text-sm text-gray-700 capitalize font-semibold">Reservation type</span>
-        <p v-if="from_library_id !== null" class="block mt-1 mb-6 text-sm text-gray-600">This is a <strong>inter</strong> library reservation</p>
+        <p v-if="from_library_id !== ''" class="block mt-1 mb-6 text-sm text-gray-600">This is a <strong>inter</strong> library reservation</p>
         <p v-else class="block mt-1 mb-6 text-sm text-gray-600">This is a <strong>same</strong> library reservation</p>
       </label>
 
-      <div v-if="from_library_id !== null">
+      <div v-if="from_library_id !== ''">
         <hr class="my-6" />
         <span class="text-md mb-2 text-gray-700 capitalize font-semibold">Inter library reservation info</span>
         <label class="block">
@@ -94,7 +94,7 @@
       </div>
       <div class="flex justify-end pt-2 gap-2">
         <button
-          v-if="(loggedInRole === 'admin' || loggedInRole === 'librarian') && loggedInLibId === library_id.toString()"
+          v-if="(loggedInRole === 'admin' || loggedInRole === 'librarian' && (status === 'checked out' || status === 'borrowed')) && loggedInLibId === library_id.toString()"
           @click="openNewFineModal"
           class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none"
         >
@@ -204,6 +204,7 @@ async function fetchReservation() {
       status.value = res.status || ''
       created_at.value = res.created_at || ''
     }
+    await fetchFines()
   } catch (error) {
     console.error('Error fetching book:', error)
   }
@@ -222,7 +223,6 @@ async function fetchInterLibReservation() {
       interLibStatus.value = res.status || ''
       logisticStatus.value = res.logistic_status || ''
     }
-    await fetchFines()
   } catch (error) {
     console.error('Error fetching book:', error)
   }
