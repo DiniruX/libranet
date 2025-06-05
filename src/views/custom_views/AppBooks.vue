@@ -97,7 +97,7 @@
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
           <h3 class="text-lg font-semibold text-gray-700"></h3>
-          <button @click="newBook" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button v-if="loggedInRole === 'admin'" @click="newBook" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
             New Book
           </button>
           <button @click="fetchBooks" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
@@ -197,7 +197,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </a>
-                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateBook(u.id)" title="Update Book"
+                      <a v-if="loggedInRole === 'admin'" href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateBook(u.id)" title="Update Book"
                         ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
@@ -207,7 +207,7 @@
                           />
                         </svg>
                       </a>
-                      <form method="POST" @submit.prevent="deleteBook(u.id)">
+                      <form v-if="loggedInRole === 'admin'"  method="POST" @submit.prevent="deleteBook(u.id)">
                         <button class="mx-2 px-2 rounded-md">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-700" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -314,6 +314,7 @@ const isUpdateBookModalOpen = ref(false)
 const isViewBookModalOpen = ref(false)
 const isNewBookModalOpen = ref(false)
 const selectedBookId = ref()
+const loggedInRole = ref(localStorage.getItem('role'))
 
 async function fetchBooks() {
   loading.value = true
@@ -331,8 +332,29 @@ async function fetchBooks() {
   }
 }
 
+async function fetchBooksByLib() {
+  loading.value = true
+  try {
+    const lib_id = localStorage.getItem('library_id')
+    const response = await axios.get(`${BASE_URL}/books/library/${lib_id}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    books.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
-  await fetchBooks()
+  if (loggedInRole.value === 'librarian') {
+    await fetchBooksByLib()
+  } else {
+    await fetchBooks()
+  }
 })
 
 async function deleteBook(bookId: number) {

@@ -40,7 +40,7 @@
 
       <label class="block">
         <span class="text-sm text-gray-700 capitalize font-semibold">Status</span>
-        <StatusLayout :status="status" />
+        <StatusLayout :status="status" class="mb-6" />
       </label>
 
       <label class="block">
@@ -94,10 +94,18 @@
       </div>
       <div class="flex justify-end pt-2 gap-2">
         <button
+          v-if="(loggedInRole === 'admin' || loggedInRole === 'librarian') && loggedInLibId === library_id.toString()"
           @click="openNewFineModal"
-          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-300 rounded-md hover:bg-gray-500 focus:outline-none"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-500 rounded-md hover:bg-gray-500 focus:outline-none"
         >
           Add Fine
+        </button>
+        <button
+          v-if="loggedInRole === 'librarian' && loggedInLibId === library_id.toString()"
+          @click="confirmReservation(props.id)"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-blue-500 rounded-md hover:bg-gray-500 focus:outline-none"
+        >
+          Confirm
         </button>
       </div>
     </div>
@@ -157,6 +165,8 @@ const status = ref('')
 const created_at = ref('')
 const loading = ref(false)
 const isNewFineModalOpen = ref(false)
+const loggedInRole = ref(localStorage.getItem('role'))
+const loggedInLibId = ref(localStorage.getItem('library_id'))
 
 // inter library reservation
 const from_library_id = ref('')
@@ -318,5 +328,22 @@ function formatDate(dateString: string): string {
 
 function openNewFineModal() {
   isNewFineModalOpen.value = true
+}
+
+async function confirmReservation(resId: number) {
+  if (!confirm('Are you sure you want to confirm this reservation?')) return
+  try {
+    await axios.put(
+      `${BASE_URL}/reservations/${resId}/confirm`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+  } catch (error) {
+    console.error('There was a problem with the delete operation:', error)
+  }
 }
 </script>

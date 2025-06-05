@@ -321,6 +321,7 @@ const isUpdateFineModalOpen = ref(false)
 const isViewResModalOpen = ref(false)
 const selectedFineId = ref()
 const selectedResId = ref(0)
+const loggedInRole = ref(localStorage.getItem('role'))
 
 async function fetchFines() {
   loading.value = true
@@ -338,8 +339,29 @@ async function fetchFines() {
   }
 }
 
+async function fetchFinesByLib() {
+  loading.value = true
+  try {
+    const lib_id = localStorage.getItem('library_id')
+    const response = await axios.get(`${BASE_URL}/fines/library/${lib_id}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    fines.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
-  await fetchFines()
+  if (loggedInRole.value === 'librarian') {
+    await fetchFinesByLib()
+  } else if (loggedInRole.value === 'admin') {
+    await fetchFines()
+  }
 })
 
 async function deleteFine(fineId: number) {

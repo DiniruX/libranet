@@ -239,6 +239,7 @@ const loading = ref(false)
 const token = ref(localStorage.getItem('token') || '')
 const isUpdateUserModalOpen = ref(false)
 const selectedUserId = ref()
+const loggedInRole = ref(localStorage.getItem('role'))
 
 async function fetchUsers() {
   loading.value = true
@@ -256,8 +257,29 @@ async function fetchUsers() {
   }
 }
 
+async function fetchUsersByLib() {
+  loading.value = true
+  try {
+    const lib_id = localStorage.getItem('library_id')
+    const response = await axios.get(`${BASE_URL}/users/library/${lib_id}`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    })
+    users.value = response.data || []
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(async () => {
-  await fetchUsers()
+  if(loggedInRole.value === 'admin'){
+    await fetchUsers()
+  } else if(loggedInRole.value === 'librarian'){
+    await fetchUsersByLib()
+  }
 })
 
 async function deleteUser(userId: number) {
