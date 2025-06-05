@@ -93,8 +93,17 @@
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
-          <button @click="fetchUsers" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="20" height="20">
+          <button @click="fetchUsers" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-500 focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+              width="20"
+              height="20"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -275,9 +284,9 @@ async function fetchUsersByLib() {
 }
 
 onMounted(async () => {
-  if(loggedInRole.value === 'admin'){
+  if (loggedInRole.value === 'admin') {
     await fetchUsers()
-  } else if(loggedInRole.value === 'librarian'){
+  } else if (loggedInRole.value === 'librarian') {
     await fetchUsersByLib()
   }
 })

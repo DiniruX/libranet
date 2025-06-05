@@ -55,7 +55,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{ libs.filter(lib => lib.city === 'Tokyo').length }}
+                {{ libs.filter((lib) => lib.city === 'Tokyo').length }}
               </h4>
               <div class="text-gray-500">Libraries in Tokyo</div>
             </div>
@@ -84,7 +84,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{ libs.filter(lib => lib.city === 'Kyoto').length }}
+                {{ libs.filter((lib) => lib.city === 'Kyoto').length }}
               </h4>
               <div class="text-gray-500">Libraries in Kyoto</div>
             </div>
@@ -98,10 +98,14 @@
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
-          <button v-if="loggedInRole === 'admin'"  @click="newLib" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button
+            v-if="loggedInRole === 'admin'"
+            @click="newLib"
+            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
+          >
             New Library
           </button>
-          <button @click="fetchLibs" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button @click="fetchLibs" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-500 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -194,7 +198,12 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </a>
-                      <a v-if="loggedInRole === 'admin' || loggedInRole === 'librarian'" href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateLib(u.id)" title="Update Library"
+                      <a
+                        v-if="loggedInRole === 'admin' || loggedInRole === 'librarian'"
+                        href="#"
+                        class="mx-2 px-2 rounded-md"
+                        @click.prevent="updateLib(u.id)"
+                        title="Update Library"
                         ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
@@ -350,7 +359,7 @@ async function fetchLibById() {
 
 onMounted(async () => {
   // await fetchLibs()
-  if(loggedInRole.value === 'librarian') {
+  if (loggedInRole.value === 'librarian') {
     await fetchLibById()
   } else {
     await fetchLibs()

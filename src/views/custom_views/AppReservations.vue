@@ -143,9 +143,12 @@
           <button @click="newRes" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
             New Reservation
           </button>
+          <button @click="expRes" class="px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded-md hover:bg-amber-500 focus:outline-none">
+            Expire Reservations
+          </button>
           <button
-            @click="fetchReservations"
-            class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none"
+            @click="initializeData"
+            class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-500 focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +187,7 @@
           </svg>
           <span>Reservations cannot be updated. Please cancel and create new reservation</span>
         </div>
-        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg mb-8">
           <table class="min-w-full">
             <thead>
               <tr>
@@ -315,8 +318,9 @@
         <!-- inter lib reservations table -->
         <div
           v-if="loggedInRole === 'admin' || loggedInRole === 'librarian'"
-          class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg mt-8"
+          class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg mt-2"
         >
+          <span class="px-2 text-md font-medium text-gray-700"> Inter Library Reservations </span>
           <table class="min-w-full">
             <thead>
               <tr>
@@ -389,7 +393,11 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                       </a>
-                      <a href="#" class="mx-2 px-2 rounded-md" @click.prevent="updateInterLibRes(u.id, u.reservation_id, u.from_library_id)" title="Update inter Library Reservation"
+                      <a
+                        href="#"
+                        class="mx-2 px-2 rounded-md"
+                        @click.prevent="updateInterLibRes(u.id, u.reservation_id, u.from_library_id)"
+                        title="Update inter Library Reservation"
                         ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-700" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                           <path
@@ -678,7 +686,7 @@ async function fetchBooks() {
   }
 }
 
-onMounted(() => {
+function initializeData() {
   if (loggedInRole.value === 'customer') {
     fetchReservationsForLoggedInUser()
   } else if (loggedInRole.value === 'admin') {
@@ -688,6 +696,10 @@ onMounted(() => {
     fetchReservationsForLibrary()
     fetchInterLibReservationsForLibrary()
   }
+}
+
+onMounted(() => {
+  initializeData()
   fetchLibs()
   fetchUsers()
   fetchBooks()
@@ -760,6 +772,26 @@ function updateInterLibRes(id: number, reservation_id?: number, from_library_id?
   selectedInterLibResIdReservation.value = reservation_id
   selectedInterLibResIdFromLibrary.value = from_library_id
   isUpdateInterLibResModalOpen.value = true
+}
+
+function expRes() {
+  if (!confirm('Are you sure you want to update and expire reservations?')) return
+  axios
+    .put(
+      `${BASE_URL}/reservations/expire`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+    .then(() => {
+      fetchReservations()
+    })
+    .catch((error) => {
+      console.error('There was a problem with the expire operation:', error)
+    })
 }
 </script>
 <style>

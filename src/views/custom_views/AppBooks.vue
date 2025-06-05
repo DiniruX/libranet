@@ -53,7 +53,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{ books.filter(book => book.status === 'damaged').length > 0 ? books.filter(book => book.status === 'damaged').length : 'No' }}
+                {{ books.filter((book) => book.status === 'damaged').length > 0 ? books.filter((book) => book.status === 'damaged').length : 'No' }}
               </h4>
               <div class="text-gray-500">Damaged Books</div>
             </div>
@@ -82,7 +82,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{ books.filter(book => book.status === 'lost').length > 0 ? books.filter(book => book.status === 'lost').length : 'No' }}
+                {{ books.filter((book) => book.status === 'lost').length > 0 ? books.filter((book) => book.status === 'lost').length : 'No' }}
               </h4>
               <div class="text-gray-500">Lost Books</div>
             </div>
@@ -97,10 +97,14 @@
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
           <h3 class="text-lg font-semibold text-gray-700"></h3>
-          <button v-if="loggedInRole === 'admin'" @click="newBook" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button
+            v-if="loggedInRole === 'admin'"
+            @click="newBook"
+            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
+          >
             New Book
           </button>
-          <button @click="fetchBooks" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button @click="fetchBooks" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-500 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -207,7 +211,7 @@
                           />
                         </svg>
                       </a>
-                      <form v-if="loggedInRole === 'admin'"  method="POST" @submit.prevent="deleteBook(u.id)">
+                      <form v-if="loggedInRole === 'admin'" method="POST" @submit.prevent="deleteBook(u.id)">
                         <button class="mx-2 px-2 rounded-md">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-700" viewBox="0 0 20 20" fill="currentColor">
                             <path
