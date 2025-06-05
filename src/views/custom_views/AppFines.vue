@@ -6,7 +6,16 @@
         <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
           <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-blue-500 bg-opacity-75 rounded-full text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="40" height="40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -22,7 +31,6 @@
                     ? fines.reduce((acc, fine) => acc + parseFloat(fine.amount), 0).toFixed(2)
                     : '0'
                 }}¥
-
               </h4>
               <div class="text-gray-500">Total Collected</div>
             </div>
@@ -31,7 +39,16 @@
         <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
           <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-green-500 bg-opacity-75 rounded-full text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="40" height="40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -51,7 +68,16 @@
         <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
           <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-amber-500 bg-opacity-75 rounded-full text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="40" height="40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -62,11 +88,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{
-                  fines.filter((fine) => fine.status === 'paid').length > 0
-                    ? fines.filter((fine) => fine.status === 'paid').length
-                    : 'No'
-                }}
+                {{ fines.filter((fine) => fine.status === 'paid').length > 0 ? fines.filter((fine) => fine.status === 'paid').length : 'No' }}
               </h4>
               <div class="text-gray-500">Paid Fines</div>
             </div>
@@ -75,7 +97,16 @@
         <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
           <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-red-500 bg-opacity-75 rounded-full text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="40" height="40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                width="40"
+                height="40"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -86,11 +117,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">
-                {{
-                  fines.filter((fine) => fine.status === 'unpaid').length > 0
-                    ? fines.filter((fine) => fine.status === 'unpaid').length
-                    : 'No'
-                }}
+                {{ fines.filter((fine) => fine.status === 'unpaid').length > 0 ? fines.filter((fine) => fine.status === 'unpaid').length : 'No' }}
               </h4>
               <div class="text-gray-500">Unpaid Fines</div>
             </div>
@@ -105,10 +132,13 @@
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="flex justify-end items-end px-6 py-4 mb-2 w-full gap-2">
           <h3 class="text-lg font-semibold text-gray-700"></h3>
-          <button @click="updateFines" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button
+            @click="updateFines"
+            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
+          >
             Update fines
           </button>
-          <button @click="fetchFines" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-indigo-500 focus:outline-none">
+          <button @click="fetchFines" class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-500 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

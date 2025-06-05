@@ -96,16 +96,30 @@
         <button
           v-if="(loggedInRole === 'admin' || loggedInRole === 'librarian') && loggedInLibId === library_id.toString()"
           @click="openNewFineModal"
-          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-500 rounded-md hover:bg-gray-500 focus:outline-none"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none"
         >
           Add Fine
         </button>
         <button
-          v-if="loggedInRole === 'librarian' && loggedInLibId === library_id.toString()"
+          v-if="loggedInRole === 'librarian' && loggedInLibId === library_id.toString() && status === 'pending'"
           @click="confirmReservation(props.id)"
-          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-blue-500 rounded-md hover:bg-gray-500 focus:outline-none"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none"
         >
           Confirm
+        </button>
+        <button
+          v-if="loggedInRole === 'librarian' && loggedInLibId === library_id.toString() && status === 'confirmed'"
+          @click="checkoutReservation(props.id)"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-green-600 rounded-md hover:bg-green-500 focus:outline-none"
+        >
+          Checkout
+        </button>
+        <button
+          v-if="loggedInRole === 'librarian' && loggedInLibId === library_id.toString() && status === 'checked out'"
+          @click="borrowReservation(props.id)"
+          class="px-2 py-1 text-sm font-medium tracking-wide text-white bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none"
+        >
+            Mark as Borrowed 
         </button>
       </div>
     </div>
@@ -335,6 +349,40 @@ async function confirmReservation(resId: number) {
   try {
     await axios.put(
       `${BASE_URL}/reservations/${resId}/confirm`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+  } catch (error) {
+    console.error('There was a problem with the delete operation:', error)
+  }
+}
+
+async function checkoutReservation(resId: number) {
+  if (!confirm('Are you sure you want to checkout this reservation?')) return
+  try {
+    await axios.put(
+      `${BASE_URL}/reservations/${resId}/checkout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+  } catch (error) {
+    console.error('There was a problem with the delete operation:', error)
+  }
+}
+
+async function borrowReservation(resId: number) {
+  if (!confirm('Are you sure you want to mark as borrowed this reservation?')) return
+  try {
+    await axios.put(
+      `${BASE_URL}/reservations/${resId}/borrow`,
       {},
       {
         headers: {
